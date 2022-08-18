@@ -9,7 +9,10 @@ namespace GayCtrlCCtrlV
     {
         static void Main(string[] args)
         {
-
+            foreach(int id in Filter.FindUnpostedPostsIds())
+            {
+                Console.WriteLine(id);
+            }
         }
     }
 }

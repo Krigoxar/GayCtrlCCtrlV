@@ -8,9 +8,9 @@ using System.Text.Json;
 
 namespace GayCtrlCCtrlV
 {
-    internal class VkParser
+    internal static class VkParser
     {
-        public List<PostModel> ParsCurent(int count)
+        public static List<PostModel> ParsCurent(int count)
         {
             List<PostModel> list = new List<PostModel>();
             var options = new RestClientOptions("https://api.vk.com/method/wall.get?domain=studsovet_fksis&count=" + count + "&access_token=e47b8755e47b8755e47b875515e76bda39ee47be47b87558686bf8df746f8865cb20be1&v=5.131")
@@ -30,8 +30,8 @@ namespace GayCtrlCCtrlV
                 {
                     list.Add(new PostModel 
                     { 
-                        Id = Convert.ToInt32((string)item["id"]),
-                        Text = (string)item["text"]
+                        Id = ((JsonElement)item["id"]).GetInt32(),
+                        Text = ((JsonElement)item["text"]).GetString()
                     });
                 }
             }
