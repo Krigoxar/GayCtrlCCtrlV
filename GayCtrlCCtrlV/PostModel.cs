@@ -30,4 +30,8 @@ namespace GayCtrlCCtrlV
         public int Id { get; set; }
         public string Text { get; set; }
     }
+    public class ResponceGetByid
+    {
+        public Dictionary<string, object>[] response { get; set; }
+    }
 }

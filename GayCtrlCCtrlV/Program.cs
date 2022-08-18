@@ -9,10 +9,14 @@ namespace GayCtrlCCtrlV
     {
         static void Main(string[] args)
         {
-            foreach(int id in Filter.FindUnpostedPostsIds())
+            GachiConverter gachiConverter = new GachiConverter(@"Dict.txt");
+            foreach (int id in IdsHendler.FindUnpostedPostsIds())
             {
-                Console.WriteLine(id);
+                string str = VkParser.GetpostFromId(id).Text;
+                Console.WriteLine(gachiConverter.ConvertToGachi(str));
             }
+            Console.ReadLine();
+            
         }
     }
 }

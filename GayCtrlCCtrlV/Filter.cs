@@ -6,36 +6,50 @@ using System.Threading.Tasks;
 
 namespace GayCtrlCCtrlV
 {
-    internal static class Filter
+    internal static class IdsHendler
     {
-
         public static List<int> FindUnpostedPostsIds()
         {
-            string path = @"C:\Users\256bit.by\source\repos\GayCtrlCCtrlV\GayCtrlCCtrlV\PostedPostsList.txt";
+            string path = @"PostedPostsList.txt";
             List<int> ids = new List<int>();
             List<PostModel> Posts = VkParser.ParsCurent(10);
-
-            foreach (PostModel post in Posts)
+            if(Posts != null)
             {
-                bool IsPosted = false;
-                string? line;
-                using (StreamReader reader = new StreamReader(path))
+                foreach (PostModel post in Posts)
                 {
-                    while ((line = reader.ReadLine()) != null)
+                    bool IsPosted = false;
+                    string? line;
+                    using (StreamReader reader = new StreamReader(path))
                     {
-                        if (line == post.Id.ToString())
+                        while ((line = reader.ReadLine()) != null)
                         {
-                            IsPosted = true;
+                            if (line == post.Id.ToString())
+                            {
+                                IsPosted = true;
+                            }
                         }
                     }
+                    if (IsPosted == false)
+                    {
+                        ids.Add(Convert.ToInt32(post.Id));
+                    }
                 }
-                if(IsPosted == false)
-                {
-                    ids.Add(Convert.ToInt32(post.Id));
-                }
+                return ids;
             }
-
-            return ids;
+            else
+            {
+                return ids;
+            }
+            
+            
+        }
+        public static void WriteId(int id)
+        {
+            string path = @"PostedPostsList.txt";
+            using (StreamWriter Writer = new StreamWriter(path, true))
+            {
+                Writer.WriteLine(id);
+            }
         }
     }
 }
